@@ -1,63 +1,49 @@
 pipeline {
     agent any
-
     environment {
-        // Define the Docker image name
-        DOCKER_IMAGE_NAME = 'calculator-java-image:latest'
+        DOCKER_IMAGE_NAME = 'sudhanshu1020/calculator-java-image:latest'
+        GITHUB_REPO_URL = 'https://github.com/Sudhanshu10Sathawane/Calculator.git'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                // Checkout the source code from your version control system
-                checkout scm
-            }
-        }
-
-        stage('Build with Maven') {
-            steps {
-                // Use Maven to build the Java application
                 script {
-                    def mvnHome = tool 'Maven'
-                    sh "${mvnHome}/bin/mvn clean install"
+                    // Checkout the code from the GitHub repository
+                    git branch: 'master', url: "${GITHUB_REPO_URL}"
                 }
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                // Build the Docker image using the provided Dockerfile
                 script {
-                    docker.build DOCKER_IMAGE_NAME, '-f Dockerfile .'
+                    // Build Docker image
+                    docker.build(DOCKER_IMAGE_NAME, '.')
                 }
             }
         }
 
-        stage('Run Docker Container') {
+        stage('Push Docker Images') {
             steps {
-                // Run the Docker container
-                script {
-                    docker.withRun("-p 8080:8080 -d --name calculator-container ${DOCKER_IMAGE_NAME}") {
-                        // Command to run inside the container, replace with your actual command
-                        sh 'java -jar target/Calculator-0.0.1-SNAPSHOT.jar'
+                script{
+                    docker.withRegistry('', 'DockerCredentialId') {
+                        docker.image(DOCKER_IMAGE_NAME).push('latest')
                     }
-                }
+                 }
             }
         }
-    }
 
-    post {
-        always {
-            // Clean up - remove the Docker container after execution
-            script {
-                docker.image(DOCKER_IMAGE_NAME).remove()
-            }
-        }
-        success {
-            echo 'Pipeline succeeded!'
-        }
-        failure {
-            echo 'Pipeline failed!'
-        }
+//    stage('Run Ansible Playbook') {
+//             steps {
+//                 script {
+//                     ansiblePlaybook(
+//                         playbook: 'deploy.yml',
+//                         inventory: 'inventory'
+//                      )
+//                 }
+//             }
+//         }
+
     }
 }
