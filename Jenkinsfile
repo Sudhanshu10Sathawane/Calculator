@@ -30,9 +30,9 @@ pipeline {
                     // Push Docker image to the registry
                     def dockerImage = docker.image(DOCKER_IMAGE_NAME)
 
-                    // Check if the Docker image is built successfully
-                    if (!dockerImage.isBuilt()) {
-                        error 'Docker image was not built successfully.'
+                    // Check if the Docker image is available
+                    if (!dockerImage) {
+                        error 'Docker image not found.'
                     }
 
                     // Push Docker image to the registry
