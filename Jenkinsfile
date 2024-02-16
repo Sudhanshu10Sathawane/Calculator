@@ -13,6 +13,7 @@ pipeline {
                     checkout scm
                 }
             }
+        }
 
         stage('Build Docker Image') {
             steps {
@@ -25,15 +26,16 @@ pipeline {
 
         stage('Push Docker Images') {
             steps {
-                 script {
-                        // Push Docker image to the registry
-                           docker.withRegistry('', DOCKER_CREDENTIALS_ID) {
-                           docker.image(DOCKER_IMAGE_NAME).push('latest')
-                 }
+                script {
+                     // Push Docker image to the registry
+                     docker.withRegistry('', DOCKER_CREDENTIALS_ID) {
+                          docker.image(DOCKER_IMAGE_NAME).push('latest')
+                        }
+                    }
+                }
             }
-        }
 
-   stage('Run Ansible Playbook') {
+        stage('Run Ansible Playbook') {
             steps {
                 script {
                     ansiblePlaybook(
