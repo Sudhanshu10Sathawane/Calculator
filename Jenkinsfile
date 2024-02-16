@@ -65,6 +65,7 @@ pipeline {
          }
          stage('Run Image'){
                        steps{
+                           sh 'docker stop my_calculator_app'
                            sh 'docker rm my_calculator_app'
                            sh 'docker run -d -p 8082:8082 --name my_calculator_app ${DOCKER_IMAGE_NAME}'
                        }
