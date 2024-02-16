@@ -3,6 +3,7 @@ pipeline {
     environment {
         DOCKER_IMAGE_NAME = 'sudhanshu1020/calculator-java-image:latest'
         DOCKER_CREDENTIALS_ID =credentials('cred')
+        ANSIBLE_VERSION = 'ansible'
     }
 
     stages {
@@ -73,7 +74,7 @@ pipeline {
         stage('Run Ansible Playbook') {
             steps {
                 script {
-                    sh "ansible-playbook -i inventory deploy.yml"
+                    sh "${tool 'ansible'}/bin/ansible-playbook -i inventory deploy.yml"
                 }
             }
         }
