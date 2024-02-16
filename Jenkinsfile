@@ -1,24 +1,39 @@
 pipeline {
     agent any
+
+    environment {
+        MAVEN_HOME = tool 'Maven'
+        PATH = "${env.MAVEN_HOME}/bin:${env.PATH}"
+    }
+
     stages {
+        stage('Checkout') {
+            steps {
+                // Check out the code from your version control system
+                checkout scm
+            }
+        }
+
         stage('Build') {
             steps {
-                echo "Building"
+                // Build the Maven project
                 script {
-                         sh "${MAVEN_HOME}/bin/mvn clean install"
+                    sh "${env.MAVEN_HOME}/bin/mvn clean install"
                 }
             }
         }
-        stage('Test') {
-            steps {
-                echo "Testing"
-            }
+
+        // ... other stages ...
+    }
+
+    post {
+        success {
+            // Actions to be taken if the build is successful
+            echo 'Build successful!'
         }
-        stage('Deploy') {
-            steps {
-                echo "Deploying"
-            }
+        failure {
+            // Actions to be taken if the build fails
+            echo 'Build failed!'
         }
     }
 }
-
