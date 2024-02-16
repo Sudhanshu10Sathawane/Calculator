@@ -58,6 +58,11 @@ pipeline {
                  sh 'docker push ${DOCKER_IMAGE_NAME}'
              }
         }
+        stage('Pull Image'){
+              steps{
+                  sh 'docker pull ${DOCKER_IMAGE_NAME}'
+              }
+         }
         stage('Run Ansible Playbook') {
             steps {
                 script {
