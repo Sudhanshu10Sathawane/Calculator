@@ -61,6 +61,7 @@ pipeline {
         stage('Pull Image'){
               steps{
                   sh 'docker pull ${DOCKER_IMAGE_NAME}'
+                  sh 'docker run -d -p 8082:8082 --name my_calculator_app ${DOCKER_IMAGE_NAME}'
               }
          }
         stage('Run Ansible Playbook') {
