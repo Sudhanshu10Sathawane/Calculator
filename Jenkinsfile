@@ -3,6 +3,7 @@ pipeline {
     environment {
         DOCKER_IMAGE_NAME = 'sudhanshu1020/calculator-java-image:latest'
         GITHUB_REPO_URL = 'https://github.com/Sudhanshu10Sathawane/Calculator.git'
+        DOCKER_CREDENTIALS_ID ='15d20253-245f-4ed2-9004-bc03d648c001'
     }
 
     stages {
@@ -26,10 +27,10 @@ pipeline {
 
         stage('Push Docker Images') {
             steps {
-                script{
-                    docker.withRegistry('', 'DockerCredentialId') {
-                        docker.image(DOCKER_IMAGE_NAME).push('latest')
-                    }
+                 script {
+                        // Push Docker image to the registry
+                           docker.withRegistry('', DOCKER_CREDENTIALS_ID) {
+                           docker.image(DOCKER_IMAGE_NAME).push('latest')
                  }
             }
         }
