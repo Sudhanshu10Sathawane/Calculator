@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools{
+        ansible 'ansible'
+    }
     environment {
         DOCKER_IMAGE_NAME = 'sudhanshu1020/calculator-java-image:latest'
         DOCKER_CREDENTIALS_ID =credentials('cred')
@@ -74,8 +77,8 @@ pipeline {
         stage('Run Ansible Playbook') {
             steps {
                 script {
-                    def ansibleBin = tool 'ansible'
-                    sh "${ansibleBin}/bin/ansible-playbook -i inventory deploy.yml"
+//                     def ansibleBin = tool 'ansible'
+                    sh "ansible-playbook deploy.yml"
                 }
             }
         }

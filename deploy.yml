@@ -1,28 +1,16 @@
-- name: Deploy Calculator App
+- name: Fetch and run Docker image from Docker Hub
   hosts: localhost
-  become: yes
+  connection: local
   tasks:
-    - name: Copy JAR file to the server
-      copy:
-        src: /path/to/local/Calculator-0.0.1-SNAPSHOT.jar
-        dest: /path/on/localhost/Calculator-0.0.1-SNAPSHOT.jar
+    - name: Pull Docker image from Docker Hub
+      docker_image:
+        name: "sudhanshu1020/calculator-java-image:latest"
+        source: pull
 
-    - name: Ensure the Java runtime is installed
-      package:
-        name: default-jre
-        state: present
-      become: yes
-      when: ansible_os_family == 'Debian'
-
-    - name: Ensure the Java runtime is installed
-      package:
-        name: java-1.8.0-openjdk
-        state: present
-      become: yes
-      when: ansible_os_family == 'RedHat'
-
-    - name: Start the Calculator App
-      command: "java -jar /path/on/localhost/Calculator-0.0.1-SNAPSHOT.jar"
-      async: 10
-      poll: 0
-      ignore_errors: yes
+    - name: Run Docker container
+      docker_container:
+        name: calculator-container
+        image: "sudhanshu1020/calculator-java-image:latest"
+        state: started
+        ports:
+          - "8082:8082"
