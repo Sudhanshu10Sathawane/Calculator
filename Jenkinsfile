@@ -74,7 +74,8 @@ pipeline {
         stage('Run Ansible Playbook') {
             steps {
                 script {
-                    sh "${tool 'ansible'}/bin/ansible-playbook -i inventory deploy.yml"
+                    def ansibleBin = tool 'ansible'
+                    sh "${ansibleBin}/bin/ansible-playbook -i inventory deploy.yml"
                 }
             }
         }
