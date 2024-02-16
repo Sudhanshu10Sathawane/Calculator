@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         DOCKER_IMAGE_NAME = 'sudhanshu1020/calculator-java-image:latest'
-        DOCKER_CREDENTIALS_ID ='15d20253-245f-4ed2-9004-bc03d648c001'
+        DOCKER_CREDENTIALS_ID ='cred'
     }
 
     stages {
