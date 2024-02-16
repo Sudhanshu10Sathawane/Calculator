@@ -18,7 +18,8 @@ pipeline {
             steps {
                 // Build the Maven project
                 script {
-                    sh "${env.MAVEN_HOME}/bin/mvn clean install"
+//                     sh "${env.MAVEN_HOME}/bin/mvn clean install"
+                       sh "mvn clean install"
                 }
             }
         }
