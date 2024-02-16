@@ -61,9 +61,12 @@ pipeline {
         stage('Run Ansible Playbook') {
             steps {
                 script {
+                    def ansiblePlaybookPath = "${workspace}/deploy.yml"
+                    // Define the path to the inventory file
+                    def inventoryFilePath = "${workspace}/inventory"
                     ansiblePlaybook(
-                        playbook: 'deploy.yml',
-                        inventory: 'inventory'
+                        playbook: ansiblePlaybookPath,
+                        inventory: inventoryFilePath
                     )
                 }
             }
