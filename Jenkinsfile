@@ -28,8 +28,23 @@ pipeline {
             steps {
                 script {
                     // Push Docker image to the registry
-                    docker.withRegistry('', DOCKER_CREDENTIALS_ID) {
-                        docker.image(DOCKER_IMAGE_NAME).push('latest')
+                    def dockerImage = docker.image(DOCKER_IMAGE_NAME)
+
+                    // Check if the Docker image is built successfully
+                    if (!dockerImage.isBuilt()) {
+                        error 'Docker image was not built successfully.'
+                    }
+
+                    // Push Docker image to the registry
+                    def pushResult = docker.withRegistry('', DOCKER_CREDENTIALS_ID) {
+                        dockerImage.push('latest')
+                    }
+
+                    // Check the result of the push operation
+                    if (pushResult != null && pushResult.getLastState().exitCode != 0) {
+                        error "Failed to push Docker image. Exit code: ${pushResult.getLastState().exitCode}"
+                    } else {
+                        echo "Docker image pushed successfully."
                     }
                 }
             }
