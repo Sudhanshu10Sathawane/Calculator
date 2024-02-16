@@ -4,6 +4,9 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Building"
+                script {
+                         sh "${MAVEN_HOME}/bin/mvn clean install"
+                        }
             }
         }
         stage('Test') {
