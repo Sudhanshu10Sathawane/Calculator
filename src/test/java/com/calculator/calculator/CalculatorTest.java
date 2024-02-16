@@ -16,10 +16,10 @@ public class CalculatorTest {
         assertNotEquals(25,Calculator.factorial(5));
     }
     @Test
-    public void testNaturalLogarithm(){
+    public void testNaturalLogarithm() {
         assertEquals(1.0986122886681096, Calculator.naturalLogarithm(3));
-        assertEquals(4.330733340286331,Calculator.naturalLogarithm(76));
-        assertNotEquals(0,Calculator.naturalLogarithm(0));
+        assertEquals(4.330733340286331, Calculator.naturalLogarithm(76));
+        assertNotEquals(0, Calculator.naturalLogarithm(0));
     }
     @Test
     public void testPower() {
