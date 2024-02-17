@@ -76,13 +76,7 @@ pipeline {
                 script {
 //                     def ansibleBin = tool 'ansible'
 //                     sh "/opt/homebrew/bin/ansible-playbook ansible-playbook deploy.yml"
-                       def ansiblePath = tool 'ansible' // 'ansible' is the tool name defined in Jenkins
-
-                                   ansible-playbook(
-                                       inventory: 'inventory',
-                                       playbook: 'deploy.yml',
-                                       installation: ansiblePath
-                                   )
+                       ansiblePlaybook installation: 'ansible', playbook: 'deploy.yml', vaultTmpPath: ''
                 }
             }
         }
