@@ -80,7 +80,7 @@ pipeline {
 
                                    ansiblePlaybook(
                                        playbook: 'deploy.yml',
-                                       inventory: 'inventory',
+//                                        inventory: 'inventory',
                                        installation: ansiblePath
                                    )
                 }
