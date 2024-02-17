@@ -57,9 +57,6 @@ pipeline {
         stage('Push Image'){
              steps{
                  sh 'docker push ${DOCKER_IMAGE_NAME}'
-                 sh 'docker pull ${DOCKER_IMAGE_NAME}'
-                 sh 'docker stop my_calculator_app'
-                 sh 'docker rm my_calculator_app'
              }
         }
 //         stage('Pull Image'){
