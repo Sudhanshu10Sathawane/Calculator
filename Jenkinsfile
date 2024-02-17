@@ -77,7 +77,7 @@ pipeline {
             steps {
                 script {
 //                     def ansibleBin = tool 'ansible'
-                    sh "/opt/homebrew/bin/ansible-playbook ansible-playbook -i inventory deploy.yml"
+                    sh "/opt/homebrew/bin/ansible-playbook ansible-playbook deploy.yml"
                 }
             }
         }
