@@ -18,7 +18,7 @@ public class CalculatorTest {
     @Test
     public void testNaturalLogarithm() {
         assertEquals(1.0986122886681096, Calculator.naturalLogarithm(3));
-        assertEquals(4.330733340286331, Calculator.naturalLogarithm(76));
+        assertEquals(7, Calculator.naturalLogarithm(76));
         assertNotEquals(0, Calculator.naturalLogarithm(0));
     }
     @Test
