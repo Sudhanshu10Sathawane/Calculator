@@ -45,15 +45,6 @@ pipeline {
 //                         dockerImage.push('latest')
 //                     }
 //
-//                     // Check the result of the push operation
-//                     if (pushResult != null && pushResult.getLastState().exitCode != 0) {
-//                         error "Failed to push Docker image. Exit code: ${pushResult.getLastState().exitCode}"
-//                     } else {
-//                         echo "Docker image pushed successfully."
-//                     }
-//                 }
-//             }
-//         }
         stage('Push Image'){
              steps{
                  sh 'docker push ${DOCKER_IMAGE_NAME}'
