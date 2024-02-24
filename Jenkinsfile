@@ -59,18 +59,6 @@ pipeline {
                  sh 'docker push ${DOCKER_IMAGE_NAME}'
              }
         }
-//         stage('Pull Image'){
-//               steps{
-//                   sh 'docker pull ${DOCKER_IMAGE_NAME}'
-//               }
-//          }
-//          stage('Run Image'){
-//                        steps{
-//                            sh 'docker stop my_calculator_app'
-//                            sh 'docker rm my_calculator_app'
-//                            sh 'docker run -d -p 8082:8082 --name my_calculator_app ${DOCKER_IMAGE_NAME}'
-//                        }
-//                   }
         stage('Run Ansible Playbook') {
             steps {
                 script {
