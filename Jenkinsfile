@@ -74,12 +74,9 @@ pipeline {
         stage('Run Ansible Playbook') {
             steps {
                 script {
-//                     def ansibleBin = tool 'ansible'
-//                     sh "/opt/homebrew/bin/ansible-playbook ansible-playbook deploy.yml"
                        ansiblePlaybook installation: 'ansible', playbook: 'deploy.yml', vaultTmpPath: ''
                 }
             }
         }
     }
-
 }
