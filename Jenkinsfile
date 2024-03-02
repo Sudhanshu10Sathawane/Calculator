@@ -37,7 +37,7 @@ pipeline {
         stage('Run Ansible Playbook') {
             steps {
                 script {
-                       ansiblePlaybook credentialsId: 'localhost', installation: 'ansible', inventory: 'inventory', playbook: 'deploy.yml', vaultTmpPath: ''
+                       ansiblePlaybook installation: 'ansible', playbook: 'deploy.yml', vaultTmpPath: ''
                 }
             }
         }
